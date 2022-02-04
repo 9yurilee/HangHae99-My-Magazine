@@ -1,21 +1,34 @@
 import React from 'react';
+import { useNavigate } from 'react-router';
 import styled from 'styled-components';
 import {Grid, Text, Button} from "../elements";
 
 const Header = (props) => {
-  return (
-      <React.Fragment>
+    const navigate = useNavigate();
+    return (
+      <>
           <Grid is_flex padding="4px 16px">
               <Grid>
-                  <Text margin="0px"size="30px" bold>My Magazine</Text>
+                  <Text 
+                  bold
+                  margin="0px"
+                  size="30px">
+                My Magazine</Text>
               </Grid>
-              
               <Grid is_flex>
-                  <Button text="로그인"></Button>
-                  <Button text="회원가입"></Button>
+                  <Button 
+                    text="로그인"
+                    _onClick={() => {
+                    navigate('/login')
+                  }}></Button>
+                  <Button 
+                    text="회원가입"
+                    _onClick={() => {
+                    navigate('/signup')
+                  }}></Button>
               </Grid>
           </Grid>
-      </React.Fragment>
+      </>
   )
 }
 

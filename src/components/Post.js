@@ -1,11 +1,10 @@
 import React from 'react';
 import {Grid, Image, Text} from "../elements"
 
-
 const Post = (props) => {
   return (
     <>
-      <Grid padding="10px">
+      <Grid padding="10px" width="80%">
         <Grid is_flex>
           <Image shape="circle" src={props.src}/>
           <Text bold>{props.user_info.user_name}</Text>
@@ -20,10 +19,6 @@ const Post = (props) => {
         <Grid padding="16px">
           <Text bold>좋아요 {props.like}개</Text>
         </Grid>
-        <div>user profile/ user name / insert_dt /is_member (edit btn)</div>
-        <div> content</div>
-        <div>image</div>
-        <div>comment cnt</div>
       </Grid>
     </>
   );

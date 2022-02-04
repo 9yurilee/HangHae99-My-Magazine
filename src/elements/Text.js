@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 
 const Text = (props) => {
-  const { bold, color, size, children } = props;
+  const { bold, color, size, children, _onClick} = props;
 
   const styles = {
     bold: bold,
@@ -11,7 +11,7 @@ const Text = (props) => {
   };
 
   return(
-  <TextWrap {...styles}>
+  <TextWrap {...styles} _onClick={_onClick}>
     {children}
   </TextWrap>
   );
@@ -22,12 +22,14 @@ Text.defaultProps = {
   bold: false,
   color: '#222831',
   size: '13px',
+  _onClick: () => {},
 };
 
 const TextWrap = styled.div`
   color: ${(props) => props.color};
   font-size: ${(props) => props.size};
   font-weight: ${(props) => (props.bold ? '600' : '400')};
+  cursor: pointer;
 `;
 
 export default Text;

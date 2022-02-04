@@ -1,7 +1,9 @@
 import React from "react";
+import { useNavigate } from "react-router";
 import { Text, Input, Grid, Button } from "../elements";
 
 const Login = (props) => {
+  const navigate = useNavigate();
   return (
     <React.Fragment>
       <Grid padding="16px">
@@ -34,6 +36,19 @@ const Login = (props) => {
           text="로그인하기"
           _onClick={() => {
             console.log("로그인 했어!");
+            navigate('/')
+            alert("로그인 완료되었습니다")
+          }}
+        ></Button>
+
+        <Grid>
+          <Text size="15px" color="dimgray">아직 회원이 아니신가요?</Text>
+        </Grid>
+        <Button
+          text="회원가입하기"
+          _onClick={() => {
+            console.log("로그인 했어!");
+            navigate('/signup')
           }}
         ></Button>
       </Grid>

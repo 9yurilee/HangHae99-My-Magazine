@@ -1,7 +1,31 @@
 import React from "react";
 import { Grid, Text, Input, Button } from "../elements";
+import { useDispatch } from 'react-redux';
+import { Navigate, useNavigate } from "react-router";
 
 const SignUp = (props) => {
+  const navigate = useNavigate();
+
+  // const signUpBtn = () => {
+  //   const history = useNavigate();
+  //   const dispatch = useDispatch();
+  
+  //   const idInput = React.useRef('');
+  //   const nicknameInput = React.useRef('');
+  //   const pwInput = React.useRef('');
+  //   const re_pwInput = React.useRef('');
+
+  //   dispatch(
+  //     createIDFB({
+  //       id: idInput.current.value,
+  //       nickname: nicknameInput.current.value,
+  //       pw: pwInput.current.value,
+  //       re_pw: re_pwInput.current.value,
+  //     })
+  //   );
+  //   history.push('/');
+  // };
+
   return (
     <React.Fragment>
       <Grid padding="16px">
@@ -49,7 +73,15 @@ const SignUp = (props) => {
           />
         </Grid>
 
-        <Button text="회원가입하기"></Button>
+        <Button
+        text="회원가입하기"
+        _onClick={() => {
+          navigate('/')
+          alert("회원가입이 완료되었습니다")
+        }}
+        >
+        </Button>
+        {/* onClick={signUpBtn} */}
       </Grid>
     </React.Fragment>
   );

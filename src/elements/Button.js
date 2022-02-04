@@ -3,7 +3,7 @@ import styled from "styled-components";
 
 const Button = (props) => {
 
-    const {text, _onClick} = props;
+    const {text, _onClick } = props;
 
     return (
       <>
@@ -14,7 +14,7 @@ const Button = (props) => {
 
 Button.defaultProps = {
     text: "텍스트",
-    _onClick: () => {}
+    _onClick: () => {},
 }
 
 const ElButton = styled.button`
@@ -25,6 +25,8 @@ const ElButton = styled.button`
     box-sizing: border-box;
     border: none;
     border-radius: 10px;
+    margin-right: 10px;
+    cursor: pointer;
 `;
 
 export default Button;

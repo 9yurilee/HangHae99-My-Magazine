@@ -15,11 +15,7 @@ import { Grid } from '../elements';
 function App() {
   return (
     <>
-      <Routes>
-        <Route path="/" element={<Main />} />
-      </Routes>
       <Grid>
-        <Header></Header>
         <Routes>
           <Route path="/" element={<Main />} />
           <Route path="/login" element={<Login />} />

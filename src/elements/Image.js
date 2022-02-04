@@ -43,7 +43,7 @@ const ImageCircle = styled.div`
 
 //늘리면 늘어나고, 줄이면 줄어들어야 한다(정해진 비율에 맞게) = padding 이용 + div를 2개 만듦
 const AspectOutter = styled.div`
-  width: 80%; //100%였는데 내가 80으로 줄였음
+  width: 100%; //100%였는데 내가 80으로 줄였음
   min-width: 250px;
 `;
 
