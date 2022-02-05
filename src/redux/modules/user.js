@@ -18,6 +18,15 @@ const logIn = createAction(LOG_IN, (user) => ({ user }));
 const logOut = createAction(LOG_OUT, (user) => ({ user }));
 const getUser = createAction(GET_USER, (user) => ({ user }));
 
+//MIDDLEWEAR
+const loginAction = (user) => {
+  return function(dispatch, getState, {history}){
+    console.log(history)
+    dispatch(logIn(user));
+    history.push('/');
+  }
+}
+
 //REDUCER
 export default handleActions(
     {
@@ -44,6 +53,7 @@ const actionCreators = {
   logIn,
   logOut,
   getUser,
+  loginAction,
 };
 
 export { actionCreators };

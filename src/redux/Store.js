@@ -12,14 +12,8 @@ const rootReducer = combineReducers({
   router: connectRouter(history),
 });
 
-// const middlewares = [thunk];
 const middlewares = [thunk.withExtraArgument({history: history})];
-
-const rootReducer = combineReducers({
-  user: User,
-});
-
-const middlewares = [thunk];
+// 배열 안에 내가 사용할 미들웨어들 넣으면 됨
 
 // 지금이 어느 환경인 지 알려줘요. (개발환경, 프로덕션(배포)환경 ...)
 const env = process.env.NODE_ENV;
@@ -28,8 +22,10 @@ const env = process.env.NODE_ENV;
 if (env === 'development') {
   const { logger } = require('redux-logger');
   middlewares.push(logger);
+  console.log("로거얌")
 }
 
+//✔️Devtools 사용
 const composeEnhancers =
   typeof window === 'object' && window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__
     ? window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__({
@@ -37,6 +33,7 @@ const composeEnhancers =
       })
     : compose;
 
+//✔️미들웨어 묶기
 const enhancer = composeEnhancers(applyMiddleware(...middlewares));
 
 let mystore = (initialStore) => createStore(rootReducer, enhancer);

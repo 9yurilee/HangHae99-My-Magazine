@@ -1,11 +1,10 @@
 import React from "react";
+import Header from "../components/Header";
 import { Grid, Text, Input, Button } from "../elements";
 import { useDispatch } from 'react-redux';
 import { Navigate, useNavigate } from "react-router";
 
 const SignUp = (props) => {
-  const navigate = useNavigate();
-
   // const signUpBtn = () => {
   //   const history = useNavigate();
   //   const dispatch = useDispatch();
@@ -76,7 +75,7 @@ const SignUp = (props) => {
         <Button
         text="회원가입하기"
         _onClick={() => {
-          navigate('/')
+          // navigate('/')
           alert("회원가입이 완료되었습니다")
         }}
         >

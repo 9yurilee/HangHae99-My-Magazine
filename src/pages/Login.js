@@ -1,10 +1,14 @@
 import React from 'react';
-import { useNavigate } from 'react-router';
+import { useHistory } from 'react-router';
 import { Text, Input, Grid, Button } from '../elements';
+import Header from "../components/Header";
 import { getCookie, setCookie, deleteCookie } from '../shared/Cookie';
 
+import {actionCreators as userActions} from "../redux/modules/user";
+import { useDispatch } from "react-redux";
+
 const Login = (props) => {
-  const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const [id, setId] = React.useState('');
   const [pw, setPw] = React.useState('');
@@ -17,10 +21,10 @@ const Login = (props) => {
     setPw(e.target.value);
   };
   console.log(getCookie('user_id'))
+
   const login = () => {
-    setCookie('user_id', 'gyuri', 3);
-    setCookie('user_pw', '1234', 3);
-  };
+    dispatch(userActions.loginAction({user_name: "perl"}));
+}
   return (
     <React.Fragment>
       <Grid padding="16px">
@@ -50,7 +54,6 @@ const Login = (props) => {
         <Button
           text="로그인하기"
           _onClick={() => {
-            // deleteCookie("user_id");
             login();
             // navigate('/');
             // alert("로그인 완료되었습니다")
@@ -66,7 +69,7 @@ const Login = (props) => {
           text="회원가입하기"
           _onClick={() => {
             console.log('로그인 했어!');
-            navigate('/signup');
+            // navigate('/signup');
           }}
         ></Button>
       </Grid>

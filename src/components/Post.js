@@ -4,7 +4,7 @@ import {Grid, Image, Text} from "../elements"
 const Post = (props) => {
   return (
     <>
-      <Grid padding="10px" width="80%">
+      <Grid padding="10px">
         <Grid is_flex>
           <Image shape="circle" src={props.src}/>
           <Text bold>{props.user_info.user_name}</Text>

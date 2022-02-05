@@ -6,7 +6,6 @@ import styled from 'styled-components';
 const Main = (props) => {
   return (
     <div>
-      <Header />
       <Post />
     </div>
   )
