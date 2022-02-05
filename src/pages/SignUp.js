@@ -73,6 +73,7 @@ import { signupFB } from "../redux/modules/user"
           <Input
             label="비밀번호"
             placeholder="비밀번호를 입력해주세요."
+            type="password"
             _onChange={(e) => {
               setPw(e.target.value);
             }}
@@ -83,6 +84,7 @@ import { signupFB } from "../redux/modules/user"
           <Input
             label="비밀번호 확인"
             placeholder="비밀번호를 다시 입력해주세요."
+            type="password"
             _onChange={(e) => {
               setPwCheck(e.target.value);
             }}

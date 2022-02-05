@@ -4,7 +4,7 @@ import { Text, Input, Grid, Button } from '../elements';
 import Header from "../components/Header";
 import { getCookie, setCookie, deleteCookie } from '../shared/Cookie';
 
-import {actionCreators as userActions} from "../redux/modules/user";
+import user, {actionCreators as userActions} from "../redux/modules/user";
 import { useDispatch } from "react-redux";
 
 const Login = (props) => {
@@ -20,10 +20,14 @@ const Login = (props) => {
   const changePw = (e) => {
     setPw(e.target.value);
   };
-  console.log(getCookie('user_id'))
 
   const login = () => {
-    dispatch(userActions.loginAction({user_name: "perl"}));
+    if(id === "" || pw === ""){
+      window.alert("아이디 혹은 비밀번호를 입력해주세요,")
+      return;
+    }
+    dispatch(userActions.loginFB(id, pw));
+    console.log(dispatch)
 }
   return (
     <React.Fragment>
@@ -38,7 +42,9 @@ const Login = (props) => {
             label="아이디"
             placeholder="아이디를 입력해주세요."
             //입력하면 바로 console 찍힌다
-            _onChange={changeId}
+            _onChange={(e) => {
+              setId(e.target.value)
+            }}
           />
         </Grid>
 
@@ -46,8 +52,12 @@ const Login = (props) => {
           <Input
             value={pw}
             label="패스워드"
+            type="password"
             placeholder="패스워드 입력해주세요."
-            _onChange={changePw}
+            _onChange={(e) => {
+              setPw(e.target.value)
+              console.log(e.target.value)
+            }}
           />
         </Grid>
 
@@ -55,8 +65,9 @@ const Login = (props) => {
           text="로그인하기"
           _onClick={() => {
             login();
-            // navigate('/');
-            // alert("로그인 완료되었습니다")
+            console.log('로그인 했어!');
+            console.log(id, pw)
+
           }}
         ></Button>
 
@@ -68,7 +79,7 @@ const Login = (props) => {
         <Button
           text="회원가입하기"
           _onClick={() => {
-            console.log('로그인 했어!');
+
             // navigate('/signup');
           }}
         ></Button>

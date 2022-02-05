@@ -9,34 +9,42 @@ import { useSelector, useDispatch } from 'react-redux';
 import { actionCreators as userActionss } from '../redux/modules/user';
 import { useHistory } from 'react-router';
 
+import {apiKey} from "../shared/firebase"
+import {history} from "../redux/Store"
+import Permit from '../shared/Permit';
+
 const Header = (props) => {
   const dispatch = useDispatch();
   const history = useHistory();
+  const isLogin = useSelector((state)=> state.user.is_login);
 
-  const isLogin = useSelector((state)=> state.user.is_login)
+  const _session_key = `firebase:authUser:${apiKey}:[DEFAULT]`;
+  const is_session = sessionStorage.getItem(_session_key) ? true : false;
+  console.log(is_session);
 
-  if (isLogin) {
-    return (
-      <>
-        <Grid is_flex padding="4px 16px">
-          <Grid>
-            <Text bold margin="0px" size="30px">
-              My Magazine
-            </Text>
-          </Grid>
-          <Grid is_flex>
-            <Button
-              text="로그아웃"
-              _onClick={() => {
-                dispatch(userActionss.logOut({}));
-                // navigate('/');
-              }}
-            ></Button>
-          </Grid>
-        </Grid>
-      </>
-    );
-  }
+  // if (isLogin && is_session) {
+  //   return (
+      
+  //   );
+  // }
+
+  <Permit>
+    <>
+    <Grid is_flex padding="4px 16px">
+      <Grid>
+        <Text bold margin="0px" size="30px">My Magazine</Text>
+      </Grid>
+      <Grid is_flex>
+        <Button 
+          text="로그아웃"
+          _onClick={() => {
+            dispatch(userActionss.logoutFB());
+          }}
+        />
+      </Grid>
+    </Grid>
+    </>
+  </Permit>
 
   return (
     <>
@@ -50,12 +58,15 @@ const Header = (props) => {
           <Button
             text="로그인"
             _onClick={() => {
+              window.location.replace("/login");
+              console.log('로그인하러~')
             }}
           ></Button>
           <Button
             text="회원가입"
             _onClick={() => {
-              // navigate('/signup');
+              window.location.replace("/signup");
+              console.log('회원가입하러~');
             }}
           ></Button>
         </Grid>
