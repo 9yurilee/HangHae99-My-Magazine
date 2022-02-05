@@ -22,14 +22,9 @@ const Header = (props) => {
   const is_session = sessionStorage.getItem(_session_key) ? true : false;
   console.log(is_session);
 
-  // if (isLogin && is_session) {
-  //   return (
-      
-  //   );
-  // }
-
-  <Permit>
-    <>
+  if (isLogin && is_session) {
+    return (
+       <>
     <Grid is_flex padding="4px 16px">
       <Grid>
         <Text bold margin="0px" size="30px">My Magazine</Text>
@@ -44,7 +39,26 @@ const Header = (props) => {
       </Grid>
     </Grid>
     </>
-  </Permit>
+    );
+  }
+
+  // <Permit>
+  //   <>
+  //   <Grid is_flex padding="4px 16px">
+  //     <Grid>
+  //       <Text bold margin="0px" size="30px">My Magazine</Text>
+  //     </Grid>
+  //     <Grid is_flex>
+  //       <Button 
+  //         text="로그아웃"
+  //         _onClick={() => {
+  //           dispatch(userActionss.logoutFB());
+  //         }}
+  //       />
+  //     </Grid>
+  //   </Grid>
+  //   </>
+  // </Permit>
 
   return (
     <>
@@ -58,15 +72,13 @@ const Header = (props) => {
           <Button
             text="로그인"
             _onClick={() => {
-              window.location.replace("/login");
-              console.log('로그인하러~')
+              window.location.replace("/login")
             }}
           ></Button>
           <Button
             text="회원가입"
             _onClick={() => {
               window.location.replace("/signup");
-              console.log('회원가입하러~');
             }}
           ></Button>
         </Grid>
@@ -78,37 +90,3 @@ const Header = (props) => {
 Header.defaultProps = {};
 
 export default Header;
-
-// 내가 한거
-// const Header = (props) => {
-//   return (
-//     <div>
-//       <HeaderWrap>My Magazine</HeaderWrap>
-//       <Btns>sign in</Btns>
-//       <Btns>sign up</Btns>
-//     </div>
-//   );
-// };
-
-// const HeaderWrap = styled.div`
-//   z-index: -1;
-//   font-size: 40px;
-//   width: 100%;
-//   height: 100px;
-//   background-color: aliceblue;
-//   display: flex;
-//   position: fixed;
-//   justify-content: center;
-//   align-items: center;
-// `;
-
-// const Btns = styled.div`
-//   z-index: 999;
-//   font-size: 24px;
-//   float: right;
-//   display: inline-flex;
-//   margin-top: 70px;
-//   margin-right: 25px;
-// `;
-
-// export default Header;

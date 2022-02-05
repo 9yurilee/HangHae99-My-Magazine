@@ -28,10 +28,8 @@ const loginFB = (id, pw) => {
     auth.setPersistence(firebase.auth.Auth.Persistence.SESSION).then((res) => {
       auth
         .signInWithEmailAndPassword(id, pw)
-        .then((userCredential) => {
-          var user = userCredential.user;
-          // Signed in
-          console.log('안녕');
+        .then((user) => {
+ 
           dispatch(
             setUser({
               user_name: user.user.displayName,
@@ -40,11 +38,8 @@ const loginFB = (id, pw) => {
               //uid=고유값
               uid: user.user.uid //안되면 userCredential.user.uid!!!       
             }),
-            console.log(user.user.uid)
           );
-
-          console.log(user.displayName);
-          history.push('/');
+          // history.push('/');
         })
         .catch((error) => {
           var errorCode = error.code;
@@ -70,18 +65,20 @@ const signUpFB = (id, pw, user_name) => {
           })
           .then(() => {
             dispatch(
-              setUser({ user_name: user_name, id: id, user_profile: '', uid: user.user.uid }),
+              setUser({ 
+                user_name: user_name,
+                id: id,
+                user_profile: '',
+                uid: user.user.uid 
+              })
             );
             history.push('/');
-            console.log(user.userCredential.uid)
+            console.log(user.user.uid)
             //error 났을때
           })
           .catch((error) => {
             console.log(error);
           });
-
-        // Signed in
-        // ...
       })
       .catch((error) => {
         var errorCode = error.code;

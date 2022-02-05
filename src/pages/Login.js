@@ -9,6 +9,7 @@ import { useDispatch } from "react-redux";
 
 const Login = (props) => {
   const dispatch = useDispatch();
+  const history = useHistory();
 
   const [id, setId] = React.useState('');
   const [pw, setPw] = React.useState('');
@@ -65,9 +66,7 @@ const Login = (props) => {
           text="로그인하기"
           _onClick={() => {
             login();
-            console.log('로그인 했어!');
-            console.log(id, pw)
-
+            history.replace('/')
           }}
         ></Button>
 
