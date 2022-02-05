@@ -7,7 +7,7 @@ import User from './modules/user';
 
 export const history = createBrowserHistory();
 
-const rootReducer = combineReducers({
+export const rootReducer = combineReducers({
   user: User,
   router: connectRouter(history),
 });

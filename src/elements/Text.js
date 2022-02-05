@@ -29,7 +29,6 @@ const TextWrap = styled.div`
   color: ${(props) => props.color};
   font-size: ${(props) => props.size};
   font-weight: ${(props) => (props.bold ? '600' : '400')};
-  cursor: pointer;
 `;
 
 export default Text;
