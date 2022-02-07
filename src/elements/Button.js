@@ -49,7 +49,7 @@ const FloatButton = styled.button`
   vertical-align: middle;
   border: none;
   border-radius: 25px;
-
+  cursor: pointer;
 `;
 
 export default Button;

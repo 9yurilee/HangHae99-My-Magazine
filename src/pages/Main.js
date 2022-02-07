@@ -12,8 +12,11 @@ const Main = (props) => {
   const post_list = useSelector((state) => state.post.list)
 
   React.useEffect(() => {
-    dispatch(postActions.getPostFB());
+    if(post_list.length === 0){
+      dispatch(postActions.getPostFB()); //메인 페이지 들어오는 순간 포스트 불러오는 중
+    }
   }, []);
+
   return (
     <div> 
       {/* <Post /> */}
