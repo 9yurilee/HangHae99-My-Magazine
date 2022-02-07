@@ -5,7 +5,11 @@ import Header from "../components/Header";
 import { getCookie, setCookie, deleteCookie } from '../shared/Cookie';
 
 import user, {actionCreators as userActions} from "../redux/modules/user";
-import { useDispatch } from "react-redux";
+import { useSelector, useDispatch } from 'react-redux';
+
+
+import { apiKey } from '../shared/firebase';
+import { history } from '../redux/Store';
 
 const Login = (props) => {
   const dispatch = useDispatch();
@@ -26,10 +30,18 @@ const Login = (props) => {
     if(id === "" || pw === ""){
       window.alert("아이디 혹은 비밀번호를 입력해주세요,")
       return;
-    }
-    dispatch(userActions.loginFB(id, pw));
-    console.log(dispatch)
-}
+  }
+  }
+  // 로그인 한 상태로 /login 접근시 Main으로!
+  const is_login = useSelector((state) => state.user.is_login);
+  const _session_key = `firebase:authUser:${apiKey}:[DEFAULT]`;
+  const is_session = sessionStorage.getItem(_session_key) ? true : false;
+
+  if (is_login && is_session) {
+      alert("이미 로그인이 된 상태입니다!");
+      history.replace('/');
+  }
+
   return (
     <React.Fragment>
       <Grid padding="16px">
