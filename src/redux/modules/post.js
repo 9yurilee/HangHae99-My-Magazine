@@ -1,14 +1,17 @@
-import { createAction, handleActions } from "redux-actions";
+import { createAction, handleActions } from 'redux-actions';
 import { produce } from 'immer';
-import { firestore } from "../../shared/firebase";
+import { firestore } from '../../shared/firebase';
 import moment from 'moment';
-import user from "./user";
+import user from './user';
+import { storage } from '../../shared/firebase';
 
-const SET_POST = "SET_POST";
-const ADD_POST = "ADD_POST";
+import { actionCreators as imageActions } from './Image';
 
-const setPost = createAction(SET_POST, (post_list) => ({post_list}));
-const addPost = createAction(ADD_POST, (post) => ({post}));
+const SET_POST = 'SET_POST';
+const ADD_POST = 'ADD_POST';
+
+const setPost = createAction(SET_POST, (post_list) => ({ post_list }));
+const addPost = createAction(ADD_POST, (post) => ({ post }));
 
 // reducer가 사용할 initialstate
 const initialState = {
@@ -17,66 +20,91 @@ const initialState = {
 
 // 포스트 하나당 initialstate
 const initialPost = {
-    image_url:
-      'https://ilovecharacter.com/news/data/20210122/p179568629887999_597.jpg',
-    contents: '',
-    insert_dt: moment().format("YYYY-MM-DD hh:mm:ss"),
-    // insert_dt: '2022-02-04 16:20:00',
-    like: 0,
+  image_url:
+    'https://ilovecharacter.com/news/data/20210122/p179568629887999_597.jpg',
+  contents: '',
+  insert_dt: moment().format('YYYY-MM-DD hh:mm:ss'),
+  // insert_dt: '2022-02-04 16:20:00',
+  like: 0,
 };
 
-const addPostFB = (contents="") => {
-  return function (dispatch, getState, {history}){
-    const postDB = firestore.collection("post");
+const addPostFB = (contents = '') => {
+  return function (dispatch, getState, { history }) {
+    const postDB = firestore.collection('post');
 
+    //getState : store에 접근
     const _user = getState().user.user;
+
     const user_info = {
       user_name: _user.user_name,
       user_id: _user.uid,
-      user_profile: _user.user_profile
+      user_profile: _user.user_profile,
     };
     const _post = {
       ...initialPost,
       // ...user_info, //강의자료에는 없는데 이렇게 해야 콘솔 찍힌다...
       contents,
-      insert_dt: moment().format("YYYY-MM-DD hh:mm:ss")
+      insert_dt: moment().format('YYYY-MM-DD hh:mm:ss'),
     };
-    
-    postDB.add({...user_info, ..._post}).then((doc) => {
-      let post = {user_info, ..._post, id: doc.id};
-      dispatch(addPost(post)); //강의자료에는 없지만, 강의에는 있다.. 또잉..
-      history.replace('/');
-  }).catch((err) => {
-      console.log('post 작성 실패!', err);
-  });
-};
+
+    const _image = getState().image.preview;
+
+    const _upload = storage
+      .ref(`images/${user_info.user_id}_${new Date().getTime()}`)
+      .putString(_image, 'data_url');
+    //string인 url을 구분하는 방법? -> uid와 업로드 시간으로 파일명 만들기
+    _upload.then((snapshot) => {
+      snapshot.ref
+        .getDownloadURL()
+        .then((url) => {
+          return url;
+        })
+        .then((url) => {
+          postDB
+            .add({ ...user_info, ..._post, image_url: url })
+            .then((doc) => {
+              let post = { user_info, ..._post, id: doc.id, image_url: url };
+              dispatch(addPost(post)); //강의자료에는 없지만, 강의에는 있다.. 또잉..
+              history.replace('/');
+
+              dispatch(imageActions.setPreview(null)); //"imageActions의 setPreview를 null로 변경한다!"
+            })
+            .catch((err) => {
+              window.alert("포스트 작성에 문제가 있어요");
+              console.log('post 작성 실패!', err);
+            });
+        }).catch((err) => {
+          console.log("이미지 업로드에 문제가 있습니다!", err);
+          window.alert("이미지 업로드에 문제가 있습니다!");
+        })
+    });
+  };
 };
 
 const getPostFB = () => {
   return function (dispatch, getState, { history }) {
-    const postDB = firestore.collection("post");
+    const postDB = firestore.collection('post');
 
     postDB.get().then((docs) => {
       let post_list = [];
 
       docs.forEach((doc) => {
-
         let _post = {
           id: doc.id,
-          ...doc.data()
+          ...doc.data(),
         };
         let post = {
-            id: doc.id,
-            user_info: {
-                user_name: _post.user_name,
-                user_profile: _post.user_profile,
-                user_id: _post.user_id,
-            },
-            contents: _post.contents,
-            image_url: _post.image_url,
-            comment_cnt: _post.comment_cnt,
-            imsert_dt: _post.insert_dt
-        }
+          id: doc.id,
+          user_info: {
+            user_name: _post.user_name,
+            user_profile: _post.user_profile,
+            user_id: _post.user_id,
+          },
+          contents: _post.contents,
+          image_url: _post.image_url,
+          comment_cnt: _post.comment_cnt,
+          imsert_dt: _post.insert_dt,
+        };
 
         post_list.push(post);
       });
@@ -89,21 +117,23 @@ const getPostFB = () => {
 };
 export default handleActions(
   {
-    [SET_POST]: (state, action) => produce(state, (draft) => {
-      draft.list = action.payload.post_list;
-    }),
-    [ADD_POST]: (state, action) => produce(state, (draft) => {
-      draft.list.unshift(action.payload.post);
-    })
-  }, initialState
+    [SET_POST]: (state, action) =>
+      produce(state, (draft) => {
+        draft.list = action.payload.post_list;
+      }),
+    [ADD_POST]: (state, action) =>
+      produce(state, (draft) => {
+        draft.list.unshift(action.payload.post);
+      }),
+  },
+  initialState,
 );
-
 
 const actionCreators = {
   setPost,
   addPost,
   getPostFB,
-  addPostFB, 
+  addPostFB,
 };
 
-export {actionCreators};
+export { actionCreators };

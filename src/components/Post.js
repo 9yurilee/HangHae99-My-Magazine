@@ -14,7 +14,7 @@ const Post = (props) => {
           <Text>{props.contents}</Text>
         </Grid>
         <Grid>
-          <Image shape="rectangle" src={props.src} />
+          <Image shape="rectangle" src={props.image_url} />
         </Grid>
         <Grid padding="16px">
           <Text bold>좋아요 {props.like}개</Text>
@@ -34,7 +34,7 @@ Post.defaultProps = {
       'https://ilovecharacter.com/news/data/20210122/p179568629887999_597.jpg',
     contents: '뚱랑이',
     insert_dt: '2022-02-04 16:20:00',
-    like: '10',
+    like: '0',
 };
 
 export default Post;
