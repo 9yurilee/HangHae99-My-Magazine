@@ -1,37 +1,33 @@
-import React from "react";
-import styled from "styled-components";
+import React from 'react';
+import styled from 'styled-components';
 
 const Button = (props) => {
-    const {text, _onClick, is_float } = props;
+  const { text, _onClick, is_float } = props;
 
-    if(is_float){
-      return (
-        <FloatButton onClick={_onClick}>{text}</FloatButton>
-      )
-    }
+  if (is_float) {
+    return <FloatButton onClick={_onClick}>{text}</FloatButton>;
+  }
 
-    return (
-        <ElButton onClick={_onClick}>{text}</ElButton>
-    );
-}
+  return <ElButton onClick={_onClick}>{text}</ElButton>;
+};
 
 //속성을 정해주는 느낌
 Button.defaultProps = {
-    text: "텍스트",
-    _onClick: () => {},
-    is_float: false,
-}
+  text: '텍스트',
+  _onClick: () => {},
+  is_float: false,
+};
 
 const ElButton = styled.button`
-    width: 100%;
-    background-color: #FF9F45;
-    color: #ffffff;
-    padding: 12px 0px;
-    box-sizing: border-box;
-    border: none;
-    border-radius: 10px;
-    margin-right: 10px;
-    cursor: pointer;
+  width: 100%;
+  background-color: #ff9f45;
+  color: #ffffff;
+  padding: 12px 0px;
+  box-sizing: border-box;
+  border: none;
+  border-radius: 10px;
+  margin-right: 10px;
+  cursor: pointer;
 `;
 
 const FloatButton = styled.button`

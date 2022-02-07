@@ -13,7 +13,7 @@ const Main = (props) => {
 
   React.useEffect(() => {
     if(post_list.length === 0){
-      dispatch(postActions.getPostFB()); //메인 페이지 들어오는 순간 포스트 불러오는 중
+      dispatch(postActions.getPostFB()); //메인 페이지 들어오는 순간 포스트 불러오는 중(getPostFB)
     }
   }, []);
 
