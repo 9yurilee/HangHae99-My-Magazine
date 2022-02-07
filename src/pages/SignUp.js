@@ -5,6 +5,8 @@ import { useDispatch } from 'react-redux';
 import { actionCreators as userActions } from "../redux/modules/user";
 import { signupFB } from "../redux/modules/user"
 
+import { emailCheck } from '../shared/emailCheck';
+
   const SignUp = (props) => {
   const dispatch = useDispatch();
 
@@ -15,32 +17,20 @@ import { signupFB } from "../redux/modules/user"
 
   const signup = () => {
     if (id === "" || pw === "" || user_name === "") {
+      window.alert('빈 칸을 채워주세요!');
       return;
     }
-    
+    if(!emailCheck(id)){
+      window.alert('아이디는 이메일 형식으로 입력해주세요');
+      return;
+    }
     if (pw !== pw_check) {
+      window.alert('비밀번호가 일치하지 않습니다. 비밀번호를 확인해주세요');
       return; //실행 안한다는 뜻
     }
 
     dispatch(userActions.signUpFB(id, pw, user_name));
     };
-
-
-  //   const idInput = React.useRef('');
-  //   const nicknameInput = React.useRef('');
-  //   const pwInput = React.useRef('');
-  //   const re_pwInput = React.useRef('');
-
-  //   dispatch(
-  //     createIDFB({
-  //       id: idInput.current.value,
-  //       nickname: nicknameInput.current.value,
-  //       pw: pwInput.current.value,
-  //       re_pw: re_pwInput.current.value,
-  //     })
-  //   );
-  //   history.push('/');
-  // };
 
   return (
     <React.Fragment>
@@ -94,7 +84,7 @@ import { signupFB } from "../redux/modules/user"
         <Button
         text="회원가입하기"
         _onClick={
-          signup()
+          signup
           // alert("회원가입이 완료되었습니다");
         }
         />

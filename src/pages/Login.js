@@ -3,10 +3,11 @@ import { Text, Input, Grid, Button } from '../elements';
 
 import { getCookie, setCookie, deleteCookie } from '../shared/Cookie';
 
-import user, {actionCreators as userActions} from "../redux/modules/user";
+import {actionCreators as userActions} from "../redux/modules/user";
 import { useSelector, useDispatch } from 'react-redux';
 import { useHistory } from 'react-router';
 
+import { emailCheck } from '../shared/emailCheck';
 import { apiKey } from '../shared/firebase';
 import { history } from '../redux/Store';
 
@@ -23,22 +24,26 @@ const Login = (props) => {
       window.alert("아이디 혹은 비밀번호를 입력해주세요,")
       return;
   }
+  if(!emailCheck(id)){
+    window.alert("아이디는 이메일 형식으로 입력해주세요");
+    return;
+  }
   dispatch(userActions.loginFB(id, pw));
   }
 
-  const is_login = useSelector((state) => state.user.is_login);
+  // const is_login = useSelector((state) => state.user.is_login);
   // const { history } = props;
 
-  if (is_login) {
-    return (
-      //margin 왜 안먹냐 ?_?
-      <Grid margin="200px 0px" padding="16px" center>
-        <Text size="30px" bold>잠깐✋🏻</Text>
-        <Text size="24px">로그인 했는디요!!</Text>
-        <Button _onClick={()=>{history.replace('/')}} text="돌아가기"></Button>
-      </Grid>
-    )
-  }
+  // if (is_login) {
+  //   return (
+  //     //margin 왜 안먹냐 ?_?
+  //     <Grid margin="200px 0px" padding="16px" center>
+  //       <Text size="30px" bold>잠깐✋🏻</Text>
+  //       <Text size="24px">로그인 했는디요!!</Text>
+  //       <Button _onClick={()=>{history.replace('/')}} text="돌아가기"></Button>
+  //     </Grid>
+  //   )
+  // }
   // // 로그인 한 상태로 /login 접근시 Main으로!
   // const is_login = useSelector((state) => state.user.is_login);
   // const _session_key = `firebase:authUser:${apiKey}:[DEFAULT]`;
@@ -48,6 +53,7 @@ const Login = (props) => {
   //     alert("이미 로그인이 된 상태입니다!");
   //     history.replace('/');
   // }
+  // 문제점!!!!!!! 로그인 완료시에도 alert 뜬다!!!!!!!
 
   return (
     <React.Fragment>
@@ -76,7 +82,6 @@ const Login = (props) => {
             placeholder="패스워드 입력해주세요."
             _onChange={(e) => {
               setPw(e.target.value)
-              console.log(e.target.value)
             }}
           />
         </Grid>
@@ -85,7 +90,7 @@ const Login = (props) => {
           text="로그인하기"
           _onClick={() => {
             login();
-            // history.replace('/')
+            history.replace('/')
           }}
         ></Button>
 
