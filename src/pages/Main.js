@@ -4,13 +4,18 @@ import Post from '../components/Post';
 import Permit from '../shared/Permit';
 import { Button } from '../elements';
 import { history } from '../redux/Store';
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import { actionCreators as postActions } from "../redux/modules/post";
+
 const Main = (props) => {
+  const dispatch = useDispatch();
   const post_list = useSelector((state) => state.post.list)
 
-  console.log(post_list)
+  React.useEffect(() => {
+    dispatch(postActions.getPostFB());
+  }, []);
   return (
-    <div>
+    <div> 
       {/* <Post /> */}
       {post_list.map((p, idx) => {
         return <Post key={p.id} {...p} />

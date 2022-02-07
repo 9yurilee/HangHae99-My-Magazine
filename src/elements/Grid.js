@@ -2,14 +2,15 @@ import React from 'react';
 import styled from 'styled-components';
 
 const Grid = (props) => {
-  const { is_flex, width, padding, margin, bg, children } = props;
+  const { is_flex, width, padding, margin, bg, children, center} = props;
   //children이 스타일을 담당하는 애가 아니라서 styles를 따로 선언..?
   const styles = {
     is_flex: is_flex,
     width: width,
     margin: margin,
     padding: padding,
-    bg: bg
+    bg: bg,
+    center: center,
   };
   return(
   <div>
@@ -27,7 +28,7 @@ Grid.defaultProps = {
   padding: false,
   margin: false,
   bg: false,
-
+  center: false,
 };
 
 const GridBox = styled.div`
@@ -44,6 +45,7 @@ const GridBox = styled.div`
   //양 옆으로 흩어져있는 것 : justify-contents: space-between!
   ${(props) => props.is_flex? `display: flex; align-items: center; justify-content: space-between; margin-right: 60px;`
       : ""}
+  ${(props) => props.center? `text-align: center` : ""}
 `;
 
 export default Grid;

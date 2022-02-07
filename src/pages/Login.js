@@ -1,12 +1,11 @@
 import React from 'react';
-import { useHistory } from 'react-router';
 import { Text, Input, Grid, Button } from '../elements';
-import Header from "../components/Header";
+
 import { getCookie, setCookie, deleteCookie } from '../shared/Cookie';
 
 import user, {actionCreators as userActions} from "../redux/modules/user";
 import { useSelector, useDispatch } from 'react-redux';
-
+import { useHistory } from 'react-router';
 
 import { apiKey } from '../shared/firebase';
 import { history } from '../redux/Store';
@@ -18,29 +17,37 @@ const Login = (props) => {
   const [id, setId] = React.useState('');
   const [pw, setPw] = React.useState('');
 
-  const changeId = (e) => {
-    setId(e.target.value);
-  };
-
-  const changePw = (e) => {
-    setPw(e.target.value);
-  };
 
   const login = () => {
     if(id === "" || pw === ""){
       window.alert("아이디 혹은 비밀번호를 입력해주세요,")
       return;
   }
+  dispatch(userActions.loginFB(id, pw));
   }
-  // 로그인 한 상태로 /login 접근시 Main으로!
-  const is_login = useSelector((state) => state.user.is_login);
-  const _session_key = `firebase:authUser:${apiKey}:[DEFAULT]`;
-  const is_session = sessionStorage.getItem(_session_key) ? true : false;
 
-  if (is_login && is_session) {
-      alert("이미 로그인이 된 상태입니다!");
-      history.replace('/');
+  const is_login = useSelector((state) => state.user.is_login);
+  // const { history } = props;
+
+  if (is_login) {
+    return (
+      //margin 왜 안먹냐 ?_?
+      <Grid margin="200px 0px" padding="16px" center>
+        <Text size="30px" bold>잠깐✋🏻</Text>
+        <Text size="24px">로그인 했는디요!!</Text>
+        <Button _onClick={()=>{history.replace('/')}} text="돌아가기"></Button>
+      </Grid>
+    )
   }
+  // // 로그인 한 상태로 /login 접근시 Main으로!
+  // const is_login = useSelector((state) => state.user.is_login);
+  // const _session_key = `firebase:authUser:${apiKey}:[DEFAULT]`;
+  // const is_session = sessionStorage.getItem(_session_key) ? true : false;
+
+  // if (is_login && is_session) {
+  //     alert("이미 로그인이 된 상태입니다!");
+  //     history.replace('/');
+  // }
 
   return (
     <React.Fragment>
@@ -78,7 +85,7 @@ const Login = (props) => {
           text="로그인하기"
           _onClick={() => {
             login();
-            history.replace('/')
+            // history.replace('/')
           }}
         ></Button>
 
@@ -90,8 +97,6 @@ const Login = (props) => {
         <Button
           text="회원가입하기"
           _onClick={() => {
-
-            // navigate('/signup');
           }}
         ></Button>
       </Grid>

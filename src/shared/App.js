@@ -37,12 +37,6 @@ function App() {
           <Route path="/edit" component={Edit} />
         </ConnectedRouter>
       </Grid>
-      {/* 여기서 하면 사방팔방 다 뜸 */}
-      {/* <Permit>
-        <Button is_float text="+" _onClick={() => (
-          history.push('/write')
-        )} />
-      </Permit> */}
     </>
   );
 }

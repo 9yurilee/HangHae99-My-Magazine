@@ -1,11 +1,9 @@
 import firebase from 'firebase/app';
 import 'firebase/auth';
 import 'firebase/firestore';
+import 'firebase/firestore';
 
-//v9에서 사용가능한 것
-// import firebase from 'firebase/compat/app';
-// import 'firebase/compat/auth';
-// import 'firebase/compat/firestore';
+
 
 const firebaseConfig = {
   apiKey: "AIzaSyAiD4ZXKj10cXntiJlSMBlWd2CSe2u0rJE",
@@ -21,5 +19,6 @@ firebase.initializeApp(firebaseConfig);
 
 const apiKey = firebaseConfig.apiKey;
 const auth = firebase.auth();
+const firestore = firebase.firestore();
 
-export {auth, apiKey};
+export {auth, apiKey, firestore};
