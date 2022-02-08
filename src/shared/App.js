@@ -3,12 +3,11 @@ import { Route } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { ConnectedRouter } from 'connected-react-router';
 
-import { Main, Login, SignUp, Write, Detail, Edit } from '../pages/PagesIndex'; //강의 내 postlist = 나의 Main
-import Permit from './Permit';
+import { Main, Login, SignUp, Write, Detail } from '../pages/PagesIndex'; //강의 내 postlist = 나의 Main
 import Header from '../components/Header';
 
 import { history } from '../redux/Store';
-import { Button, Grid } from '../elements';
+import { Grid } from '../elements';
 import { actionCreators as userActions } from '../redux/modules/user';
 import { apiKey } from './firebase';
 
@@ -33,8 +32,9 @@ function App() {
           <Route path="/login" component={Login} />
           <Route path="/signup" component={SignUp} />
           <Route path="/write" component={Write} />
+          {/* 게시물수정 */}
+          <Route path="/write/:id" component={Write} />  
           <Route path="/detail" component={Detail} />
-          <Route path="/edit" component={Edit} />
         </ConnectedRouter>
       </Grid>
     </>
