@@ -31,7 +31,7 @@ function App() {
           <Route path="/" component={Main} exact />
           <Route path="/login" component={Login} />
           <Route path="/signup" component={SignUp} />
-          <Route path="/write" component={Write} />
+          <Route path="/write" component={Write} exact />
           {/* 게시물수정 */}
           <Route path="/write/:id" component={Write} />  
           <Route path="/detail" component={Detail} />

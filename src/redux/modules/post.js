@@ -147,7 +147,7 @@ const getPostFB = () => {
   return function (dispatch, getState, { history }) {
     const postDB = firestore.collection('post');
 
-    let query = postDB.orderBy("insert_dt", "desc").limit(2);
+    let query = postDB.orderBy("insert_dt", "desc").limit(8);
 
   query.get().then(docs => {
       let post_list = [];

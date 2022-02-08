@@ -1,10 +1,10 @@
 import React from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 
 import Post from '../components/Post';
 import Permit from '../shared/Permit';
 import { Button } from '../elements';
 import { history } from '../redux/Store';
-import { useSelector, useDispatch } from 'react-redux';
 import { actionCreators as postActions } from '../redux/modules/post';
 
 const Main = (props) => {
@@ -21,11 +21,10 @@ const Main = (props) => {
   return (
     <div>
       {post_list.map((p, idx) => {
-        if (p.user_info.user_id === user_info?.uid) {
+        if (user_info && p.user_info.user_id === user_info.uid) {
           return <Post key={p.id} {...p} is_me />;
-        } else {
-          return <Post key={p.id} {...p} />;
         }
+        return <Post key={p.id} {...p} />;
       })}
       <Permit>
         <Button is_float text="+" _onClick={() => history.push('/write')} />

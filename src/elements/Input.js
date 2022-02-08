@@ -1,63 +1,81 @@
-import React from "react";
-import styled from "styled-components";
+import React from 'react';
+import styled from 'styled-components';
 
-import {Text, Grid} from "./index";
+import { Text, Grid } from './index';
 
 const Input = (props) => {
-    const {label, placeholder, _onChange, type} = props;
+  const {
+    label,
+    placeholder,
+    _onChange,
+    type,
+    multiLine,
+    value,
+    is_submit,
+    onSubmit,
+  } = props;
+
+  if (multiLine) {
     return (
-      <React.Fragment>
-        <Grid>
-          <Text margin="0px">{label}</Text>
-          <ElInput type={type} placeholder={placeholder} onChange={_onChange} />
-        </Grid>
-      </React.Fragment>
+      <Grid>
+        {label && <Text margin="0px">{label}</Text>}
+        <ElTextarea  
+          rows={10}
+          value={value}
+          placeholder={placeholder}
+          onChange={_onChange}
+        ></ElTextarea>
+      </Grid>
     );
-}
+  }
+
+  return (
+    <React.Fragment>
+      <Grid>
+        {label && <Text margin="0px">{label}</Text>}
+        {is_submit ? (
+          <ElInput
+            type={type}
+            placeholder={placeholder}
+            onChange={_onChange}
+            value={value}
+            onKeyPress={(e) => {
+              if(e.key === "Enter"){
+                onSubmit(e);
+              }
+            }}
+          />
+        ) : (
+          <ElInput type={type} placeholder={placeholder} onChange={_onChange} />
+        )}
+      </Grid>
+    </React.Fragment>
+  );
+};
 
 Input.defaultProps = {
-    label: '텍스트',
-    placeholder: '텍스트를 입력해주세요.',
-    type: "text",
-    _onChange: () => {}
-}
+  multiLine: false,
+  label: false,
+  placeholder: '텍스트를 입력해주세요.',
+  type: 'text',
+  value: "",
+  is_submit: false,
+  onSubmit: () => {},
+  _onChange: () => {},
+};
+
+const ElTextarea = styled.textarea`
+  border: 1px solid #212121;
+  width: 100%;
+  padding: 12px 4px;
+  box-sizing: border-box;
+`;
 
 const ElInput = styled.input`
-    border: 1px solid #212121;
-    width: 100%;
-    padding: 12px 4px;
-    box-sizing: border-box;
+  border: 1px solid #212121;
+  width: 100%;
+  padding: 12px 4px;
+  box-sizing: border-box;
 `;
 
 export default Input;
-
-
-//내가 한구야
-// import React from "react";
-// import styled from "styled-components";
-
-// const Input = (props) => {
-//   const {width, height, borderRadius, children} = props;
-//   const styles = {
-//     width: width,
-//     height: height,
-//     borderRadius: borderRadius,
-//   };
-//   return (
-//     <>
-//     <InputBox {...styles}>{children}</InputBox>
-//     </>
-//   )
-// }
-
-// Input.defaultProps = {
-// };
-
-// const InputBox = styled.input`
-// width: 250px;
-// height: 30px;
-// border: solid 1px;
-// border-radius: 10px;
-// `;
-
-// export default Input;
