@@ -24,27 +24,27 @@ const Main = (props) => {
   return (
     <>
       <Grid>
-        {post_list.map((p, idx) => {
-          if (user_info && p.user_info.user_id === user_info.uid) {
+        {post_list.map((post, idx) => {
+          if (user_info && post.user_info.user_id === user_info.uid) { //user_info?로 되어있다..?
             return (
               <Grid
-                key={p.id}
+                key={post.id}
                 _onClick={() => {
-                  history.push(`/detail/${p.id}`);
+                  history.push(`/detail/${post.id}`);
                 }}
               >
-                <Post key={p.id} {...p} is_me />;
+                <Post key={post.id} {...post} is_me />;
               </Grid>
             );
           } else {
             return (
               <Grid
-                key={p.id}
+                key={post.id}
                 _onClick={() => {
-                  history.push(`/detail/${p.id}`);
+                  history.push(`/detail/${post.id}`);
                 }}
               >
-                <Post {...p} />;
+                <Post {...post} />;
               </Grid>
             );
           }

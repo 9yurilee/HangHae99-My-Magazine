@@ -34,7 +34,7 @@ function App() {
           <Route path="/write" component={Write} exact />
           {/* 게시물수정 */}
           <Route path="/write/:id" component={Write} />  
-          <Route path="/detail" component={Detail} />
+          <Route path="/detail/:id" component={Detail} />
         </ConnectedRouter>
       </Grid>
     </>

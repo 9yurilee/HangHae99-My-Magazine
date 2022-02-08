@@ -2,11 +2,13 @@ import React from 'react';
 import styled from 'styled-components';
 
 const Image = (props) => {
-  const { shape, src, size } = props;
+  const { shape, src, size, _onClick } = props;
+
   const styles = {
     src: src,
     size: size,
   };
+
   if (shape === 'circle') {
     return (
       //속성이 styles?
@@ -15,14 +17,14 @@ const Image = (props) => {
   }
   if (shape === 'rectangle') {
     return (
-      <AspectOutter>
+      <AspectOutter onClick={_onClick}>
         <AspectInner {...styles} />
       </AspectOutter>
     )
   }
   return (
   <>
-     <ImageDefault {...styles}></ImageDefault>
+     <ImageDefault {...styles} onClick={_onClick}></ImageDefault>
   </>);
 };
 
@@ -30,6 +32,7 @@ Image.defaultProps = {
   shape: 'circle',
   src: 'https://ilovecharacter.com/news/data/20210122/p179568629887999_597.jpg',
   size: 36,
+  _onClick: () => {},
 };
 
 const ImageDefault = styled.div`
