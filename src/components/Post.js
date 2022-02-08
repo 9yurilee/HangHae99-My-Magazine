@@ -13,24 +13,24 @@ const Post = (props) => {
           </Grid>
           <Grid is_flex width="auto">
             {props.is_me && (
-              <Button
-                text="수정"
-                width="auto"
-                padding="4px"
-                margin="4px"
-                _onClick={() => {
-                  history.push(`/write/${props.id}`);
-                }}
-              />
-              // <Button
-              // text="삭제"
-              // width="auto"
-              // padding="4px"
-              // margin="4px"
-              // _onClick={() => {
-              //   history.push(`/write/${props.id}`);
-              // }}
-              // />
+              <>
+                <Button
+                  text="수정"
+                  width="auto"
+                  padding="4px"
+                  margin="4px"
+                  _onClick={() => {
+                    history.push(`/write/${props.id}`);
+                  }}
+                />
+                <Button
+                  text="삭제"
+                  width="auto"
+                  padding="4px"
+                  margin="4px"
+                  // _onClick={}
+                />
+              </>
             )}
             <Text>{props.insert_dt}</Text>
           </Grid>

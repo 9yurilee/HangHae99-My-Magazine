@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 
 const Grid = (props) => {
-  const { is_flex, width, padding, margin, bg, children, center} = props;
+  const { is_flex, width, padding, margin, bg, children, center, _onClick} = props;
   //children이 스타일을 담당하는 애가 아니라서 styles를 따로 선언..?
   const styles = {
     is_flex: is_flex,
@@ -14,7 +14,7 @@ const Grid = (props) => {
   };
   return(
   <div>
-    <GridBox {...styles}>{children}</GridBox>
+    <GridBox onClick={_onClick} {...styles}>{children}</GridBox>
     {/* 여기 원래 ...props 였음 */}
     {/* 자식 객체를 넣는다..? */}
   </div>
@@ -29,6 +29,7 @@ Grid.defaultProps = {
   margin: false,
   bg: false,
   center: false,
+  _onClick: ()=>{}
 };
 
 const GridBox = styled.div`
