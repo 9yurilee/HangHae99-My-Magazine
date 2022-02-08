@@ -49,7 +49,9 @@ const Detail = (props) => {
   return (
     <React.Fragment>
       {post && (
-        <Post {...post} is_me={post.user_info.user_id === user_info.uid} />
+        <Post {...post} />
+        //is_me={post.user_info.user_id === user_info.uid}가 안된당...
+        //없어도 되는거 아닌가,,,
       )}
     </React.Fragment>
   );

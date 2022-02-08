@@ -1,18 +1,20 @@
 import React from 'react';
-import { Grid, Text, Button } from '../elements';
+import { Grid, Text, Button } from '../elements/index';
 import { getCookie, deleteCookie } from '../shared/Cookie';
 
 //redux hook: store에 있는 값 가져와서 쓸 수 있게
 import { useSelector, useDispatch } from 'react-redux';
 import { actionCreators as userActionss } from '../redux/modules/user';
 
-import { history } from "../redux/Store";
+import { history } from '../redux/Store';
 import { apiKey } from '../shared/firebase';
+import { useHistory } from 'react-router';
 
 // import Permit from '../shared/Permit';
 
 const Header = (props) => {
   const dispatch = useDispatch();
+  const history = useHistory();
   const is_login = useSelector((state) => state.user.is_login);
 
   const _session_key = `firebase:authUser:${apiKey}:[DEFAULT]`;
@@ -25,9 +27,15 @@ const Header = (props) => {
       <>
         <Grid is_flex padding="4px 16px">
           <Grid>
-            <Text bold margin="0px" size="30px">
-              My Magazine
-            </Text>
+            <Text
+              text="My Magazine"
+              _onClick={() => {
+                window.location.replace('/');
+              }}
+              bold
+              margin="auto"
+              size="30px"
+            />
           </Grid>
           <Grid is_flex>
             <Button
@@ -42,15 +50,20 @@ const Header = (props) => {
     );
   }
 
-
   return (
     <div>
       {/* 로그인 안했을 때  헤더 */}
       <Grid is_flex padding="4px 16px">
         <Grid>
-          <Text bold margin="0px" size="30px">
-            My Magazine
-          </Text>
+          <Text
+            text="My Magazine"
+            _onClick={() => {
+              window.location.replace('/');
+            }}
+            bold
+            margin="auto"
+            size="30px"
+          />
         </Grid>
         <Grid is_flex>
           <Button
