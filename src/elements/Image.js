@@ -13,14 +13,17 @@ const Image = (props) => {
       <ImageCircle {...styles}></ImageCircle>
     );
   }
-  if (shape == 'rectangle') {
+  if (shape === 'rectangle') {
     return (
       <AspectOutter>
         <AspectInner {...styles} />
       </AspectOutter>
     )
   }
-  return <></>;
+  return (
+  <>
+     <ImageDefault {...styles}></ImageDefault>
+  </>);
 };
 
 Image.defaultProps = {
@@ -29,30 +32,40 @@ Image.defaultProps = {
   size: 36,
 };
 
-const ImageCircle = styled.div`
+const ImageDefault = styled.div`
   // --size라는 변수가 생긴 것
   --size: ${(props) => props.size}px;
   width: var(--size);
   height: var(--size);
-  border-radius: var(--size);
+  background-image: url("${(props) => props.src}");
+  background-size: cover;
+`;
+
+const ImageCircle = styled.div`
+  width: 40px;
+  height: 40px;
+  border-radius: 20px;
 
   background-image: url('${(props) => props.src}');
   background-size: cover;
-  margin: 4px;
+  margin: 2px 4px;
 `;
 
 //늘리면 늘어나고, 줄이면 줄어들어야 한다(정해진 비율에 맞게) = padding 이용 + div를 2개 만듦
 const AspectOutter = styled.div`
   width: 100%; //100%였는데 내가 80으로 줄였음
   min-width: 250px;
+  overflow: hidden;
 `;
 
 const AspectInner = styled.div`
   position: relative;
-  padding-top: 75%; //4:3 맞추기 위해
-  overflow: hidden; //넘쳐나오는 애들 숨기기
+  padding-top: 50%;
   background-image: url('${(props) => props.src}');
-  background-size: cover;
+  background-size: contain; 
+  background-position: center;
+  background-repeat: no-repeat;
+  /* object-fit:cover; */ //없어도 될 듯..ㅎ
 `;
 
 export default Image;
