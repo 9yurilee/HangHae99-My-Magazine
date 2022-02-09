@@ -46,7 +46,7 @@ const GridBox = styled.div`
   ${(props)=> props.margin ? `margin: ${props.margin}`: ""};
   ${(props)=> props.bg ? `background-color: ${props.bg}`: ""};
   //양 옆으로 흩어져있는 것 : justify-contents: space-between!
-  ${(props) => props.is_flex? `display: flex; align-items: center; justify-content: space-between; margin-right: 60px;`
+  ${(props) => props.is_flex? `display: flex; align-items: center; justify-content: space-between; margin-right: 20px;`
       : ""}
   ${(props) => props.center? `text-align: center` : ""}
 `;

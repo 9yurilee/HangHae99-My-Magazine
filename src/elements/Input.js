@@ -4,16 +4,7 @@ import styled from 'styled-components';
 import { Text, Grid } from './index';
 
 const Input = (props) => {
-  const {
-    label,
-    placeholder,
-    _onChange,
-    type,
-    multiLine,
-    value,
-    is_submit,
-    onSubmit,
-  } = props;
+  const {label, placeholder, _onChange, type, multiLine, value, is_submit, onSubmit, radio} = props;
 
   if (multiLine) {
     return (
@@ -60,6 +51,7 @@ Input.defaultProps = {
   type: 'text',
   value: "",
   is_submit: false,
+  radio: false,
   onSubmit: () => {},
   _onChange: () => {},
 };

@@ -1,9 +1,10 @@
 import React from 'react';
 import Post from '../components/Post';
+import { Text } from '../elements';
 
 import { useSelector } from 'react-redux';
 
-import {firestore} from "../shared/firebase";
+import { firestore } from '../shared/firebase';
 
 const Detail = (props) => {
   const id = props.match.params.id;
@@ -48,7 +49,10 @@ const Detail = (props) => {
   return (
     <>
       {post && (
-        <Post {...post} is_me={post.user_info.user_id === user_info?.uid} />
+        <>
+          <Text bold size="24px">상세페이지</Text>
+          <Post {...post} is_me={post.user_info.user_id === user_info?.uid} />
+        </>
       )}
     </>
   );

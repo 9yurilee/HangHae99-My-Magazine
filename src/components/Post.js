@@ -19,6 +19,8 @@ const Post = (props) => {
           console.error('삭제 중 에러', error);
           window.alert('삭제 중 에러가 발생했습니다');
         });
+    } else {
+      return
     }
   };
 

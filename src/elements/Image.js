@@ -63,7 +63,7 @@ const AspectOutter = styled.div`
 
 const AspectInner = styled.div`
   position: relative;
-  padding-top: 50%;
+  padding-top: 70%;
   background-image: url('${(props) => props.src}');
   background-size: contain; 
   background-position: center;

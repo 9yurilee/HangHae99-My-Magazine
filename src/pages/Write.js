@@ -1,11 +1,12 @@
 import React from 'react';
-import { Grid, Text, Button, Image, Input } from '../elements';
+import { Grid, Text, Button, Image, Input, Layout } from '../elements';
 import Upload from '../shared/Upload';
 
 import { useSelector, useDispatch } from 'react-redux';
 import { history } from '../redux/Store';
 import { actionCreators as postActions } from '../redux/modules/post';
 import { actionCreators as imageActions } from '../redux/modules/Image';
+import styled from 'styled-components';
 
 const Write = (props) => {
   const dispatch = useDispatch();
@@ -27,7 +28,6 @@ const Write = (props) => {
 
       return;
     }
-
     if (is_edit) {
       dispatch(imageActions.setPreview(_post.image_url));
     }
@@ -42,8 +42,8 @@ const Write = (props) => {
   };
 
   const editPost = () => {
-    dispatch(postActions.editPostFB(post_id, {contents: contents}));
-  }
+    dispatch(postActions.editPostFB(post_id, { contents: contents }));
+  };
 
   // 로그인 안하고 /write 접근 막기
   if (!is_login) {
@@ -65,7 +65,7 @@ const Write = (props) => {
   }
   return (
     <>
-      <Grid padding="16px">
+      <Grid padding="25px">
         <Text margin="0px" size="36px" bold>
           {is_edit ? '게시글 수정' : '게시글 작성'}
         </Text>
@@ -73,34 +73,29 @@ const Write = (props) => {
       </Grid>
 
       <Grid>
-        <Grid padding="25px">
-          <Text margin="0px" size="24px" bold>
-            미리보기
-          </Text>
-        </Grid>
-
-        <Image
+        <Layout></Layout>
+        {/* <Image
           shape="rectangle"
           src={
             preview
               ? preview
               : 'https://cdn1.vectorstock.com/i/1000x1000/50/20/no-photo-or-blank-image-icon-loading-images-vector-37375020.jpg'
           }
-        />
+        /> */}
       </Grid>
 
-      <Grid padding="16px">
+      <Grid padding="25px">
+        <Text size="24px" margin="20px" bold text="게시물 내용" />
         <Input
           value={contents}
           _onChange={changeContents}
-          label="게시글 내용"
           placeholder="내용을 입력하세요"
           multiLine
         />
       </Grid>
 
-      <Grid padding="16px">
-      {is_edit ? (
+      <Grid padding="25px">
+        {is_edit ? (
           <Button text="게시글 수정" _onClick={editPost}></Button>
         ) : (
           <Button text="게시글 작성" _onClick={addPost}></Button>
@@ -109,6 +104,5 @@ const Write = (props) => {
     </>
   );
 };
-
 
 export default Write;

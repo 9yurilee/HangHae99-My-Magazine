@@ -2,15 +2,19 @@ import React from 'react';
 import styled from 'styled-components';
 
 const Text = (props) => {
-  const { bold, color, size, children, _onClick, margin, height, text} = props;
+  const { bold, color, size, children, _onClick, margin, height, text, display, alignItems, justifyContent,textAlign} = props;
 
   const styles = {
-    bold: bold,
-    color: color,
-    size: size,
-    margin : margin,
+    bold,
+    color,
+    size,
+    margin,
     height,
     text,
+    display,
+    alignItems,
+    textAlign,
+    justifyContent
   };
 
   return(
@@ -29,14 +33,18 @@ Text.defaultProps = {
   _onClick: () => {},
   height: 0,
   text: '',
+  display: false,
+  alignItems: false,
+  justifyContent: false,
+  textAlign: false,
 };
 
 const TextWrap = styled.div`
   color: ${(props) => props.color};
   font-size: ${(props) => props.size};
   font-weight: ${(props) => (props.bold ? '600' : '400')};
-  /* margin: ${(props) => props.margin}; */
-  cursor: pointer;
+  margin: ${(props) => props.margin};
+  text-align: ${(props) => props.textAlign};
 `;
 
 export default Text;

@@ -11,18 +11,12 @@ const ImgUpload = (props) => {
   const fileInput = React.useRef();
 
   const selectFile = (e) => {
-    console.log(e);
-    console.log(e.target.files[0]);
-    console.log(fileInput.current.files[0]);
-
     const reader = new FileReader();
     const file = e.target.files[0];
 
     reader.readAsDataURL(file); // 파일 내용 읽어오기
 
     reader.onloadend = () => { //파일 읽어오기 끝나면 실행되는 이벤트 핸들러!
-        console.log("아뇽~~")
-        console.log(reader.result);
         dispatch(imageActions.setPreview(reader.result));
     }
   };
@@ -32,7 +26,6 @@ const ImgUpload = (props) => {
       window.alert('파일을 선택해주세요!');
       return;
     }
-
     dispatch(imageActions.uploadImageFB(fileInput.current.files[0]));
   };
 
