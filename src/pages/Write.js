@@ -73,7 +73,7 @@ const Write = (props) => {
       </Grid>
 
       <Grid>
-        <Grid padding="16px">
+        <Grid padding="25px">
           <Text margin="0px" size="24px" bold>
             미리보기
           </Text>
@@ -94,7 +94,7 @@ const Write = (props) => {
           value={contents}
           _onChange={changeContents}
           label="게시글 내용"
-          placeholder="게시글 작성"
+          placeholder="내용을 입력하세요"
           multiLine
         />
       </Grid>
@@ -109,5 +109,6 @@ const Write = (props) => {
     </>
   );
 };
+
 
 export default Write;

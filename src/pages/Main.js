@@ -13,7 +13,7 @@ const Main = (props) => {
   const post_list = useSelector((state) => state.post.list);
   const user_info = useSelector((state) => state.user.user);
 
-  const { history } = props;
+  const { history } = props; 
 
   React.useEffect(() => {
     if (post_list.length === 0) {
@@ -25,7 +25,7 @@ const Main = (props) => {
     <>
       <Grid>
         {post_list.map((post, idx) => {
-          if (user_info && post.user_info.user_id === user_info.uid) { //user_info?로 되어있다..?
+          if (user_info && post.user_info.user_id === user_info?.uid) { //user_info?로 되어있다..?
             return (
               <Grid
                 key={post.id}

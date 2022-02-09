@@ -30,7 +30,7 @@ const Input = (props) => {
   }
 
   return (
-    <React.Fragment>
+    <>
       <Grid>
         {label && <Text margin="0px">{label}</Text>}
         {is_submit ? (
@@ -49,7 +49,7 @@ const Input = (props) => {
           <ElInput type={type} placeholder={placeholder} onChange={_onChange} />
         )}
       </Grid>
-    </React.Fragment>
+    </>
   );
 };
 

@@ -5,6 +5,7 @@ import { ConnectedRouter } from 'connected-react-router';
 
 import { Main, Login, SignUp, Write, Detail } from '../pages/PagesIndex'; //강의 내 postlist = 나의 Main
 import Header from '../components/Header';
+import Layout from '../elements/Layout';
 
 import { history } from '../redux/Store';
 import { Grid } from '../elements';
@@ -35,6 +36,7 @@ function App() {
           {/* 게시물수정 */}
           <Route path="/write/:id" component={Write} />  
           <Route path="/detail/:id" component={Detail} />
+          <Route path="/layout" component={Layout} />
         </ConnectedRouter>
       </Grid>
     </>

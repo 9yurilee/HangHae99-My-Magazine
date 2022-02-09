@@ -1,8 +1,25 @@
 import React from 'react';
 import { Grid, Image, Text, Button } from '../elements';
 import { history } from '../redux/Store';
+import { firestore } from '../shared/firebase';
 
 const Post = (props) => {
+  const onDelete = async () => {
+    const ok = window.confirm('정말로 게시물을 삭제하시겠어요?');
+    if (ok) {
+      await firestore.collection('post')
+        .doc(`${props.id}`)
+        .delete()
+        .then(() => {
+          window.alert("삭제가 완료되었습니다");
+          window.location.replace('/');
+        })
+        .catch((error) => {
+          console.error('Error removing document: ', error);
+        });
+    }
+  };
+
   return (
     <>
       <Grid padding="10px 50px">
@@ -28,7 +45,7 @@ const Post = (props) => {
                   width="auto"
                   padding="4px"
                   margin="4px"
-                  // _onClick={}
+                  _onClick={onDelete}
                 />
               </>
             )}
@@ -41,11 +58,7 @@ const Post = (props) => {
         <Grid>
           <Image shape="rectangle" src={props.image_url} />
         </Grid>
-        {/* <Grid padding="16px">
-          <Text margin="0px" bold>
-            좋아요 {props.like}개
-          </Text>
-        </Grid> */}
+ 
       </Grid>
     </>
   );
