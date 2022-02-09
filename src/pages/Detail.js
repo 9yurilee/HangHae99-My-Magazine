@@ -19,7 +19,6 @@ const Detail = (props) => {
     if (post) {
       return;
     }
-
     const postDB = firestore.collection('post');
     postDB
       .doc(id)
@@ -47,13 +46,11 @@ const Detail = (props) => {
   }, []);
 
   return (
-    <React.Fragment>
+    <>
       {post && (
-        <Post {...post} />
-        //is_me={post.user_info.user_id === user_info.uid}가 안된당...
-        //없어도 되는거 아닌가,,,
+        <Post {...post} is_me={post.user_info.user_id === user_info?.uid} />
       )}
-    </React.Fragment>
+    </>
   );
 };
 export default Detail;

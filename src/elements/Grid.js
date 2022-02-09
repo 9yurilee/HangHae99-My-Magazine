@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 
 const Grid = (props) => {
-  const { is_flex, width, padding, margin, bg, children, center, _onClick} = props;
+  const { is_flex, width, padding, margin, bg, border, children, center, _onClick} = props;
   //children이 스타일을 담당하는 애가 아니라서 styles를 따로 선언..?
   const styles = {
     is_flex: is_flex,
@@ -11,6 +11,7 @@ const Grid = (props) => {
     padding: padding,
     bg: bg,
     center: center,
+    border: border,
   };
   return(
   <div>
@@ -28,6 +29,7 @@ Grid.defaultProps = {
   padding: false,
   margin: false,
   bg: false,
+  border: false,
   center: false,
   _onClick: ()=>{}
 };
