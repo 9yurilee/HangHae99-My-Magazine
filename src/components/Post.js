@@ -7,15 +7,17 @@ const Post = (props) => {
   const onDelete = async () => {
     const ok = window.confirm('정말로 게시물을 삭제하시겠어요?');
     if (ok) {
-      await firestore.collection('post')
+      await firestore
+        .collection('post')
         .doc(`${props.id}`)
         .delete()
         .then(() => {
-          window.alert("삭제가 완료되었습니다");
+          window.alert('삭제가 완료되었습니다');
           window.location.replace('/');
         })
         .catch((error) => {
-          console.error('Error removing document: ', error);
+          console.error('삭제 중 에러', error);
+          window.alert('삭제 중 에러가 발생했습니다');
         });
     }
   };
@@ -56,9 +58,14 @@ const Post = (props) => {
           <Text>{props.contents}</Text>
         </Grid>
         <Grid>
-          <Image shape="rectangle" src={props.image_url} />
+          <Image
+            shape="rectangle"
+            src={props.image_url}
+            _onClick={() => {
+              history.push(`/detail/${props.id}`);
+            }}
+          />
         </Grid>
- 
       </Grid>
     </>
   );
@@ -70,9 +77,8 @@ Post.defaultProps = {
     user_name: 'name',
     user_profile: 'http://www.ipon.co.kr/common/img/default_profile.png',
   },
-  image_url:
-    'https://ilovecharacter.com/news/data/20210122/p179568629887999_597.jpg',
-  contents: '뚱랑이',
+  image_url: 'http://www.ipon.co.kr/common/img/default_profile.png',
+  contents: '기본',
   insert_dt: '2022-02-04 16:20:00',
   like: '0',
 };

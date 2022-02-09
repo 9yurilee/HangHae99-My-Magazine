@@ -27,12 +27,7 @@ const Main = (props) => {
         {post_list.map((post, idx) => {
           if (user_info && post.user_info.user_id === user_info?.uid) { //user_info?로 되어있다..?
             return (
-              <Grid
-                key={post.id}
-                _onClick={() => {
-                  history.push(`/detail/${post.id}`);
-                }}
-              >
+              <Grid key={post.id}>
                 <Post key={post.id} {...post} is_me />;
               </Grid>
             );
