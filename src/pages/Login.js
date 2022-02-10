@@ -5,7 +5,6 @@ import { getCookie, setCookie, deleteCookie } from '../shared/Cookie';
 
 import {actionCreators as userActions} from "../redux/modules/user";
 import { useSelector, useDispatch } from 'react-redux';
-import { useHistory } from 'react-router';
 
 import { emailCheck } from '../shared/emailCheck';
 import { apiKey } from '../shared/firebase';
@@ -13,11 +12,9 @@ import { history } from '../redux/Store';
 
 const Login = (props) => {
   const dispatch = useDispatch();
-  const history = useHistory();
 
   const [id, setId] = React.useState('');
   const [pw, setPw] = React.useState('');
-
 
   const login = () => {
     if(id === "" || pw === ""){
@@ -31,29 +28,18 @@ const Login = (props) => {
   dispatch(userActions.loginFB(id, pw));
   }
 
-  // const is_login = useSelector((state) => state.user.is_login);
-  // const { history } = props;
+  const is_login = useSelector((state) => state.user.is_login);
+  const { history } = props;
 
-  // if (is_login) {
-  //   return (
-  //     //margin 왜 안먹냐 ?_?
-  //     <Grid margin="200px 0px" padding="16px" center>
-  //       <Text size="30px" bold>잠깐✋🏻</Text>
-  //       <Text size="24px">로그인 했는디요!!</Text>
-  //       <Button _onClick={()=>{history.replace('/')}} text="돌아가기"></Button>
-  //     </Grid>
-  //   )
-  // }
-  // // 로그인 한 상태로 /login 접근시 Main으로!
-  // const is_login = useSelector((state) => state.user.is_login);
-  // const _session_key = `firebase:authUser:${apiKey}:[DEFAULT]`;
-  // const is_session = sessionStorage.getItem(_session_key) ? true : false;
-
-  // if (is_login && is_session) {
-  //     alert("이미 로그인이 된 상태입니다!");
-  //     history.replace('/');
-  // }
-  // 문제점!!!!!!! 로그인 완료시에도 alert 뜬다!!!!!!!
+  if (is_login) {
+    return (
+      <Grid padding="16px" center>
+        <Text size="30px" bold>잠깐✋🏻</Text>
+        <Text size="24px">로그인이 되어있네요!</Text>
+        <Button _onClick={()=>{history.replace('/')}} text="돌아가기"></Button>
+      </Grid>
+    )
+  }
 
   return (
     <React.Fragment>
@@ -88,10 +74,7 @@ const Login = (props) => {
 
         <Button
           text="로그인하기"
-          _onClick={() => {
-            login();
-            history.replace('/')
-          }}
+          _onClick={login}
         ></Button>
 
         <Grid>
@@ -102,6 +85,7 @@ const Login = (props) => {
         <Button
           text="회원가입하기"
           _onClick={() => {
+            history.push('/signup')
           }}
         ></Button>
       </Grid>

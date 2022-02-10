@@ -24,7 +24,7 @@ const Write = (props) => {
   let _post = is_edit ? post_list.find((p) => p.id === post_id) : null;
   const [contents, setContents] = React.useState(_post ? _post.contents : '');
 
-  const [layout, setLayout] = React.useState(_post ? _post.layout : 'bottom');
+  const [layout, setLayout] = React.useState(_post ? _post.layout : '');
 
   React.useEffect(() => {
     if (is_edit && !_post) {

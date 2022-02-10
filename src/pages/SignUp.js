@@ -1,11 +1,11 @@
 import React from "react";
 import { Grid, Text, Input, Button } from "../elements";
 
-import { useDispatch } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { actionCreators as userActions } from "../redux/modules/user";
 import { signupFB } from "../redux/modules/user"
-
 import { emailCheck } from '../shared/emailCheck';
+
 
   const SignUp = (props) => {
   const dispatch = useDispatch();
@@ -15,7 +15,7 @@ import { emailCheck } from '../shared/emailCheck';
   const [pw_check, setPwCheck] = React.useState("");
   const [user_name, setUserName] = React.useState('');
 
-  const signup = () => {
+  const signup = () => { 
     if (id === "" || pw === "" || user_name === "") {
       window.alert('빈 칸을 채워주세요!');
       return;
@@ -30,8 +30,23 @@ import { emailCheck } from '../shared/emailCheck';
     }
 
     dispatch(userActions.signUpFB(id, pw, user_name));
+    history.replace('/');
+    window.alert(`반갑습니다 ${user_name}님🥰 회원가입이 완료되었습니다!`);
     };
 
+    const is_login = useSelector((state) => state.user.is_login);
+    const { history } = props;
+  
+    if (is_login) {
+      return (
+        <Grid padding="16px" center>
+          <Text size="30px" bold>잠깐✋🏻</Text>
+          <Text size="24px">새로운 회원가입은 로그아웃 후 진행해주세요!</Text>
+          <Button _onClick={()=>{history.replace('/')}} text="돌아가기"></Button>
+        </Grid>
+      )
+    }
+   
   return (
     <React.Fragment>
       <Grid padding="16px">
@@ -83,10 +98,7 @@ import { emailCheck } from '../shared/emailCheck';
 
         <Button
         text="회원가입하기"
-        _onClick={
-          signup
-          // alert("회원가입이 완료되었습니다");
-        }
+        _onClick={signup}
         />
       </Grid>
     </React.Fragment>

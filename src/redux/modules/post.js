@@ -70,7 +70,7 @@ const addPostFB = (contents = '', layout='') => {
             .then((doc) => {
               let post = { user_info, ..._post, id: doc.id, image_url: url };
               dispatch(addPost(post)); //강의자료에는 없지만, 강의에는 있다.. 또잉..
-              window.location.replace('/');
+              history.replace('/');
 
               dispatch(imageActions.setPreview(null)); //"imageActions의 setPreview를 null로 변경한다!"
             })
@@ -132,7 +132,7 @@ const editPostFB = (post_id = null, post = {}) => {
               .update({ ...post, image_url: url })
               .then((doc) => {
                 dispatch(editPost(post_id, { ...post, image_url: url }));
-                history.replace('/');
+                history.push('/');
               });
           })
           .catch((err) => {

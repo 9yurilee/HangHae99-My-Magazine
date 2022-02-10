@@ -1,21 +1,12 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
+
 import { Grid, Image, Text, Button } from '../elements';
 import { history } from '../redux/Store';
 import { firestore } from '../shared/firebase';
 
-import Write from '../pages/Write';
 
 const Post = (props) => {
-  const {
-    user_info,
-    image_url,
-    contents,
-    like_cnt,
-    insert_dt,
-    id,
-    layout,
-    comment_cnt,
-  } = props;
+  const { layout } = props;
 
   const onDelete = async () => {
     const ok = window.confirm('정말로 게시물을 삭제하시겠어요?');
@@ -26,7 +17,7 @@ const Post = (props) => {
         .delete()
         .then(() => {
           window.alert('삭제가 완료되었습니다');
-          window.location.replace('/');
+          history.replace('/');
         })
         .catch((error) => {
           console.error('삭제 중 에러', error);
@@ -107,7 +98,7 @@ const Post = (props) => {
             <Grid>
               <Image
                 shape="rectangle"
-                src={image_url}
+                src={props.image_url}
                 _onClick={() => {
                   history.push(`/detail/${props.id}`);
                 }}

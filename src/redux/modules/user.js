@@ -35,11 +35,11 @@ const loginFB = (id, pw) => {
               user_name: user.user.displayName,
               id: id,
               user_profile: '',
-              //uid=고유값
-              uid: user.user.uid //안되면 userCredential.user.uid!!!       
+              uid: user.user.uid   
             }),
           );
-          // history.push('/');
+          history.replace('/')
+          alert(`반갑습니다 ${user.user.displayName}님`)
         })
         .catch((error) => {
           var errorCode = error.code;
@@ -56,12 +56,9 @@ const signUpFB = (id, pw, user_name) => {
     auth
       .createUserWithEmailAndPassword(id, pw)
       .then((user) => {
-        console.log(user);
-
         auth.currentUser
           .updateProfile({
             displayName: user_name,
-            //then : 성공했을 때 들어오는 곳
           })
           .then(() => {
             dispatch(
@@ -72,20 +69,15 @@ const signUpFB = (id, pw, user_name) => {
                 uid: user.user.uid 
               })
             );
-            history.push('/');
-            console.log(user.user.uid)
-            //error 났을때
           })
           .catch((error) => {
-            console.log(error);
+            window.alert("회원가입 중에 문제가 발생했어요🥲", error)
           });
       })
       .catch((error) => {
         var errorCode = error.code;
         var errorMessage = error.message;
-
         console.log(errorCode, errorMessage);
-        // ..
       });
   };
 };
@@ -113,7 +105,6 @@ const logoutFB = () => {
     auth.signOut().then(() => {
       dispatch(logOut());
       history.replace('/');
-      //현재 페이지를 ()로 대체해서 뒤로 가기로 접근 불가
     })
   }
 }
@@ -121,12 +112,10 @@ const logoutFB = () => {
 //REDUCER
 export default handleActions(
   {
-    //produce (원본값, 원본값으로 하고싶은 일)
     [SET_USER]: (state, action) =>
       produce(state, (draft) => {
         setCookie('is_login', 'success');
         draft.user = action.payload.user;
-        // payload에 우리가 보낸 데이터가 담김
         draft.is_login = true;
       }),
     [LOG_OUT]: (state, action) =>
@@ -144,6 +133,7 @@ export default handleActions(
 const actionCreators = {
   logOut,
   getUser,
+  setUser,
   signUpFB,
   loginFB,
   loginCheckFB,
