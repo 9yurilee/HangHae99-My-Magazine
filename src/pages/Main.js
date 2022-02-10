@@ -25,23 +25,10 @@ const Main = (props) => {
     <>
       <Grid>
         {post_list.map((post, idx) => {
-          if (user_info && post.user_info.user_id === user_info?.uid) { //user_info?로 되어있다..?
-            return (
-              <Grid key={post.id}>
-                <Post key={post.id} {...post} is_me />;
-              </Grid>
-            );
+          if (user_info && post.user_info.user_id === user_info?.uid) {  //로그인 했을 때만 체크하기 위해 optional chaining(user?.uid)사용
+            return <Post key={post.id} {...post} is_me />;
           } else {
-            return (
-              <Grid
-                key={post.id}
-                _onClick={() => {
-                  history.push(`/detail/${post.id}`);
-                }}
-              >
-                <Post {...post} />;
-              </Grid>
-            );
+            return <Post key={post.id} {...post} />;
           }
         })}
         <Permit>

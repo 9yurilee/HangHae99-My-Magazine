@@ -32,7 +32,7 @@ const initialPost = {
   like: 0,
 };
 
-const addPostFB = (contents = '') => {
+const addPostFB = (contents = '', layout='') => {
   return function (dispatch, getState, { history }) {
     const postDB = firestore.collection('post');
 
@@ -46,6 +46,7 @@ const addPostFB = (contents = '') => {
     };
     const _post = {
       ...initialPost,
+      layout,
       // ...user_info, //강의자료에는 없는데 이렇게 해야 콘솔 찍힌다...
       contents,
       insert_dt: moment().format('YYYY-MM-DD hh:mm:ss'),
@@ -69,7 +70,7 @@ const addPostFB = (contents = '') => {
             .then((doc) => {
               let post = { user_info, ..._post, id: doc.id, image_url: url };
               dispatch(addPost(post)); //강의자료에는 없지만, 강의에는 있다.. 또잉..
-              history.replace('/');
+              window.location.replace('/');
 
               dispatch(imageActions.setPreview(null)); //"imageActions의 setPreview를 null로 변경한다!"
             })

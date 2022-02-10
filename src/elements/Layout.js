@@ -42,6 +42,7 @@ const Layout = (props) => {
           <Text>{contents}게시물 내용 들어갈 자리</Text>
           {/* 수정 화면 미리보기엔 {post_list[0].contents} */}
           {/* input 안에 들어있던 값 받아오기 */}
+
         </Grid>
         <Grid>
           <Image

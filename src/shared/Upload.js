@@ -31,8 +31,8 @@ const ImgUpload = (props) => {
 
   return (
     <>
-      <input type="file" onChange={selectFile} ref={fileInput} disabled={is_uploading} />
-      <Button text="파일 업로드" _onClick={uploadFB}></Button>
+      <input type="file" onChange={selectFile} ref={fileInput} disabled={is_uploading} _onClick={uploadFB}/>
+      {/* <Button text="파일 업로드" _onClick={uploadFB}></Button> */}
     </>
   );
 };

@@ -38,7 +38,7 @@ Text.defaultProps = {
   alignItems: false,
   justifyContent: false,
   textAlign: false,
-  float: false,
+  float: 'left',
 };
 
 const TextWrap = styled.div`

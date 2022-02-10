@@ -1,12 +1,12 @@
-import React from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 
-import { Grid, Text, Button, Image, Input, Layout } from '../elements';
+import { Grid, Text, Button, Image, Input } from '../elements';
 import Upload from '../shared/Upload';
-
-import { useSelector, useDispatch } from 'react-redux';
 import { history } from '../redux/Store';
-import { actionCreators as postActions } from '../redux/modules/post';
+import { useSelector, useDispatch } from 'react-redux';
+import post, { actionCreators as postActions } from '../redux/modules/post';
 import { actionCreators as imageActions } from '../redux/modules/Image';
+
 import styled from 'styled-components';
 
 const Write = (props) => {
@@ -44,18 +44,19 @@ const Write = (props) => {
   };
 
   const addPost = () => {
-    dispatch(postActions.addPostFB(contents));
+    dispatch(postActions.addPostFB(contents, layout));
   };
 
   const editPost = () => {
-    dispatch(postActions.editPostFB(post_id, { contents: contents }));
+    dispatch(postActions.editPostFB(post_id, { contents: layout  }));
   };
 
-  // const is_checked = (e) => {
-  //   if (e.target.checked) {
-  //     setLayout(e.target.value);
-  //   }
-  // };
+  const is_checked = (e) => {
+    if (e.target.checked) {
+      setLayout(e.target.value);
+      console.log(e.target.value);
+    }
+  };
 
   // 로그인 안하고 /write 접근 막기
   if (!is_login) {
@@ -82,17 +83,26 @@ const Write = (props) => {
           {is_edit ? '게시글 수정' : '게시글 작성'}
         </Text>
         <Upload />
+        <Text bold size="20px" margin="50px 0px 5px 10px">
+          레이아웃 고르기
+        </Text>
       </Grid>
-      {/* 레이아웃별 그리드 */}
-      {/* 사진 아래  */}
-      <DIV>
+
+      <Grid>
+        <input
+          type="radio"
+          name="layout"
+          value="bottom"
+          id="bottom"
+          onChange={is_checked}
+        />
         <label for="bottom">
-          <input type="radio" name="radiobtn" value="bottom" id="bottom" />
-          <strong>텍스트는 위쪽, 이미지는 아래쪽</strong>
+          <strong style={layout === 'bottom' ? { color: '#1B9CFC' } : null}>
+            텍스트는 위쪽, 이미지는 아래쪽
+          </strong>
         </label>
         <Grid padding="35px">
-          <Text>{contents}</Text>
-          {/* 수정 화면 미리보기엔 {post_list[0].contents} */}
+          <Text float>{contents}</Text>
         </Grid>
         <Grid>
           <Image
@@ -104,15 +114,22 @@ const Write = (props) => {
             }
           />
         </Grid>
-      </DIV>
+      </Grid>
 
-
-      <DIV>
-        <label for="right">
-          <input type="radio" name="radiobtn" value="right" id="right" />
-          <strong>텍스트는 왼쪽, 이미지는 오른쪽</strong>
-        </label>
-        <Grid padding="35px">
+      <Grid padding="16px">
+        <Grid>
+          <label for="right">
+            <input
+              type="radio"
+              name="layout"
+              value="right"
+              id="right"
+              onChange={is_checked}
+            />
+            <strong style={layout === 'right' ? { color: '#1B9CFC' } : null}>
+              텍스트는 왼쪽, 이미지는 오른쪽
+            </strong>
+          </label>
           <Grid is_flex center margin="auto">
             {contents}
             <Image
@@ -125,15 +142,23 @@ const Write = (props) => {
             />
           </Grid>
         </Grid>
-      </DIV>
+      </Grid>
 
-      <DIV>
+      <Grid>
         <label for="left">
-          <input type="radio" name="radiobtn" value="left" id="left" />
-          <strong>텍스트는 오른쪽, 이미지는 왼쪽</strong>
+          <input
+            type="radio"
+            name="layout"
+            value="left"
+            id="left"
+            onChange={is_checked}
+          />
+          <strong style={layout === 'left' ? { color: '#1B9CFC' } : null}>
+            텍스트는 오른쪽, 이미지는 왼쪽
+          </strong>
         </label>
         <Grid padding="35px">
-          <Grid is_flex center margin="auto">
+          <Grid is_flex margin="auto">
             <Image
               shape="rectangle"
               src={
@@ -145,9 +170,8 @@ const Write = (props) => {
             <Text>{contents}</Text>
           </Grid>
         </Grid>
-      </DIV>
+      </Grid>
 
-      {/* 게시물 입력칸 */}
       <Grid padding="25px">
         <Text size="24px" margin="20px" bold text="게시물 내용" />
         <Input
@@ -171,7 +195,7 @@ const Write = (props) => {
 
 const DIV = styled.div`
   width: 800px;
-  margin: auto;
+  margin: 10px auto;
   margin-bottom: 30px;
   align-items: center; //박스 내 중앙정렬 같은그
   text-align: center;
