@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 
 const Text = (props) => {
-  const { bold, color, size, children, _onClick, margin, height, text, display, alignItems, justifyContent,textAlign} = props;
+  const { float, bold, color, size, children, _onClick, margin, height, text, display, alignItems, justifyContent,textAlign} = props;
 
   const styles = {
     bold,
@@ -14,7 +14,8 @@ const Text = (props) => {
     display,
     alignItems,
     textAlign,
-    justifyContent
+    justifyContent,
+    float
   };
 
   return(
@@ -37,6 +38,7 @@ Text.defaultProps = {
   alignItems: false,
   justifyContent: false,
   textAlign: false,
+  float: false,
 };
 
 const TextWrap = styled.div`

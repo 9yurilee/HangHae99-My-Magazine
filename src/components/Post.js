@@ -3,7 +3,11 @@ import { Grid, Image, Text, Button } from '../elements';
 import { history } from '../redux/Store';
 import { firestore } from '../shared/firebase';
 
+import Write from '../pages/Write';
+
 const Post = (props) => {
+  const { user_info, image_url, contents, insert_dt, id, layout } = props;
+
   const onDelete = async () => {
     const ok = window.confirm('정말로 게시물을 삭제하시겠어요?');
     if (ok) {
@@ -20,7 +24,7 @@ const Post = (props) => {
           window.alert('삭제 중 에러가 발생했습니다');
         });
     } else {
-      return
+      return;
     }
   };
 
@@ -56,18 +60,22 @@ const Post = (props) => {
             <Text>{props.insert_dt}</Text>
           </Grid>
         </Grid>
-        <Grid padding="5px">
-          <Text>{props.contents}</Text>
-        </Grid>
-        <Grid>
-          <Image
-            shape="rectangle"
-            src={props.image_url}
-            _onClick={() => {
-              history.push(`/detail/${props.id}`);
-            }}
-          />
-        </Grid>
+        {/* 여기다가 복붙 */}
+        <>
+              <Grid padding="5px">
+                <Text>{props.contents}</Text>
+              </Grid>
+              <Grid>
+                <Image
+                  shape="rectangle"
+                  src={props.image_url}
+                  _onClick={() => {
+                    history.push(`/detail/${props.id}`);
+                  }}
+                />
+              </Grid>
+          </>
+        ;
       </Grid>
     </>
   );

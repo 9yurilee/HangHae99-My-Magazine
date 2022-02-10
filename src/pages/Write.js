@@ -1,4 +1,5 @@
 import React from 'react';
+
 import { Grid, Text, Button, Image, Input, Layout } from '../elements';
 import Upload from '../shared/Upload';
 
@@ -10,9 +11,11 @@ import styled from 'styled-components';
 
 const Write = (props) => {
   const dispatch = useDispatch();
+
   const is_login = useSelector((state) => state.user.is_login);
   const preview = useSelector((state) => state.image.preview);
   const post_list = useSelector((state) => state.post.list);
+
   const post_id = props.match.params.id;
   const is_edit = post_id ? true : false;
 
@@ -20,6 +23,8 @@ const Write = (props) => {
 
   let _post = is_edit ? post_list.find((p) => p.id === post_id) : null;
   const [contents, setContents] = React.useState(_post ? _post.contents : '');
+
+  const [layout, setLayout] = React.useState(_post ? _post.layout : 'bottom');
 
   React.useEffect(() => {
     if (is_edit && !_post) {
@@ -35,6 +40,7 @@ const Write = (props) => {
 
   const changeContents = (e) => {
     setContents(e.target.value);
+    console.log(e.target.value);
   };
 
   const addPost = () => {
@@ -44,6 +50,12 @@ const Write = (props) => {
   const editPost = () => {
     dispatch(postActions.editPostFB(post_id, { contents: contents }));
   };
+
+  // const is_checked = (e) => {
+  //   if (e.target.checked) {
+  //     setLayout(e.target.value);
+  //   }
+  // };
 
   // 로그인 안하고 /write 접근 막기
   if (!is_login) {
@@ -71,19 +83,71 @@ const Write = (props) => {
         </Text>
         <Upload />
       </Grid>
+      {/* 레이아웃별 그리드 */}
+      {/* 사진 아래  */}
+      <DIV>
+        <label for="bottom">
+          <input type="radio" name="radiobtn" value="bottom" id="bottom" />
+          <strong>텍스트는 위쪽, 이미지는 아래쪽</strong>
+        </label>
+        <Grid padding="35px">
+          <Text>{contents}</Text>
+          {/* 수정 화면 미리보기엔 {post_list[0].contents} */}
+        </Grid>
+        <Grid>
+          <Image
+            shape="rectangle"
+            src={
+              preview
+                ? preview
+                : 'https://cdn1.vectorstock.com/i/1000x1000/50/20/no-photo-or-blank-image-icon-loading-images-vector-37375020.jpg'
+            }
+          />
+        </Grid>
+      </DIV>
 
-      <Grid>
-        <Layout></Layout>
-        {/* <Image
-          shape="rectangle"
-          src={
-            preview
-              ? preview
-              : 'https://cdn1.vectorstock.com/i/1000x1000/50/20/no-photo-or-blank-image-icon-loading-images-vector-37375020.jpg'
-          }
-        /> */}
-      </Grid>
 
+      <DIV>
+        <label for="right">
+          <input type="radio" name="radiobtn" value="right" id="right" />
+          <strong>텍스트는 왼쪽, 이미지는 오른쪽</strong>
+        </label>
+        <Grid padding="35px">
+          <Grid is_flex center margin="auto">
+            {contents}
+            <Image
+              shape="rectangle"
+              src={
+                preview
+                  ? preview
+                  : 'https://cdn1.vectorstock.com/i/1000x1000/50/20/no-photo-or-blank-image-icon-loading-images-vector-37375020.jpg'
+              }
+            />
+          </Grid>
+        </Grid>
+      </DIV>
+
+      <DIV>
+        <label for="left">
+          <input type="radio" name="radiobtn" value="left" id="left" />
+          <strong>텍스트는 오른쪽, 이미지는 왼쪽</strong>
+        </label>
+        <Grid padding="35px">
+          <Grid is_flex center margin="auto">
+            <Image
+              shape="rectangle"
+              src={
+                preview
+                  ? preview
+                  : 'https://cdn1.vectorstock.com/i/1000x1000/50/20/no-photo-or-blank-image-icon-loading-images-vector-37375020.jpg'
+              }
+            />
+            <Text>{contents}</Text>
+          </Grid>
+        </Grid>
+      </DIV>
+
+      {/* 게시물 입력칸 */}
       <Grid padding="25px">
         <Text size="24px" margin="20px" bold text="게시물 내용" />
         <Input
@@ -104,5 +168,18 @@ const Write = (props) => {
     </>
   );
 };
+
+const DIV = styled.div`
+  width: 800px;
+  margin: auto;
+  margin-bottom: 30px;
+  align-items: center; //박스 내 중앙정렬 같은그
+  text-align: center;
+  vertical-align: middle;
+  border: 1px solid #eee;
+  border-radius: 15px;
+  padding: 30px;
+  margin-top: 15px;
+`;
 
 export default Write;

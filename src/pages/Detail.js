@@ -2,14 +2,13 @@ import React from 'react';
 import Post from '../components/Post';
 import { Text } from '../elements';
 
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 
 import { firestore } from '../shared/firebase';
 
 const Detail = (props) => {
   const id = props.match.params.id;
   const user_info = useSelector((state) => state.user.user);
-  console.log(user_info);
   const post_list = useSelector((store) => store.post.list);
   const post_idx = post_list.findIndex((p) => p.id === id);
   const post_data = post_list[post_idx];
